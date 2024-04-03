@@ -1,12 +1,5 @@
 #!/bin/bash
 
-## Variables Used
-# DB_HOST=""
-# DB_USER=""
-# DB_PASSWORD=""
-# DB_NAME=""
-# APP_DIR=""
-
 # Create the backup directory if it doesn't exist
 mkdir -p "$APP_DIR"
 
