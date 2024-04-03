@@ -31,8 +31,8 @@ echo "Backup file: $BACKUP_FILE"
 
 
 # Perform the backup using mysqldump
-mariadb-dump --ssl -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
-
+# mariadb-dump --ssl -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
+mariadb-dump -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
 
 # Optionally compress the backup file (uncomment the line below if you want to compress)
 # gzip "$APP_DIR/$DB_NAME-$TIMESTAMP.sql"
