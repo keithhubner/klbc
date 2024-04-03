@@ -21,6 +21,8 @@ jobs:
         secrets: |
           9daacb93-c531-467d-a26b-b147008919ee > DOCKER_USERNAME
           812e5bc9-a062-438f-9467-b1470088ee32 > DOCKER_PASSWORD
+    - name: Echo
+      run: echo "DOCKER USERNAME IS $DOCKER_USERNAME"
           
   push_to_docker:
       needs: build
