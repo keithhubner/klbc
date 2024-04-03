@@ -6,7 +6,7 @@ on:
       - main  # Change this to your main branch name
 
 jobs:
-  build:
+  build_and_push:
     runs-on: ubuntu-latest
     # outputs:
     #   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -29,6 +29,12 @@ jobs:
       with:
         username: ${{ env.DOCKER_USERNAME }}
         password: ${{ env.DOCKER_PASSWORD }}
+        
+    - name: Build Docker Image
+      run: docker build -t keithhubner/klbc:latest .
+      
+    - name: Push Docker Image to Docker Hub
+      run: docker push keithhubner/klbc:latest
         
   # push_to_docker:
   #     needs: build
