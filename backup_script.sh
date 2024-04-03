@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # Create the backup directory if it doesn't exist
+echo "Creating backup directory..."
 mkdir -p "$APP_DIR"
 mkdir -p "$APP_DIR/backups"
 mkdir -p "$APP_DIR/logs"
 
+echo "Backup directory created successfully."
 
 # Generate a timestamp for the backup file
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
