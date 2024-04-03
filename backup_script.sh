@@ -2,6 +2,9 @@
 
 # Create the backup directory if it doesn't exist
 mkdir -p "$APP_DIR"
+mkdir -p "$APP_DIR/backups"
+mkdir -p "$APP_DIR/logs"
+
 
 # Generate a timestamp for the backup file
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
