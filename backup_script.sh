@@ -25,4 +25,4 @@ echo "Backup file: $BACKUP_FILE"
 # mariadb-dump --ssl -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
 mariadb-dump -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
 
-
+cat $BACKUP_FILE
