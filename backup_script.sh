@@ -1,4 +1,15 @@
 #!/bin/bash
+
+# Cleanup function
+cleanup() {
+    # Perform cleanup tasks here
+    echo "Cleaning up before exit..."
+    # Example: Close file descriptors, remove temporary files, etc.
+    exit 0
+}
+
+trap 'cleanup' SIGINT SIGTERM
+
 set -e
 
 # Create the backup directory if it doesn't exist
@@ -28,3 +39,5 @@ mariadb-dump -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_F
 # cat $BACKUP_FILE
 echo "Running S3 Backup...."
 s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} put --acl-${PUB_PRIV} ${BACKUP_FILE} s3://${S3_PATH}
+
+cleanup
