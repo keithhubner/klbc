@@ -7,10 +7,11 @@ This container is designed to provide really simple backups and store these back
 Current functionality:
 
 - Connect to a mysql/mariadb database, backup to remote S3 bucket
+- Retain a set number of days backup
 
 To do:
 
-- Retention options on remote storage
+- Nofitication of backup (summary)
 - File Backup
 - Helm chart deployment
 
@@ -30,6 +31,7 @@ To do:
 | BUCKET                  | Name of the AWS S3 bucket |
 | PUB_PRIV                | Access level for the S3 bucket (public or private) |
 | S3_PATH                 | Path within the S3 bucket to store the backup files |
+| OLDER_THAN_DAYS         | Delete backups older than this number of days |
 
 
 # Examples
