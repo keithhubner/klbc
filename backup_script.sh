@@ -68,6 +68,6 @@ s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} ls --recursive s3://${S3_
   # If the file is older than the specified number of days, delete it
   if [ $AGE -gt ${OLDER_THAN_DAYS} ]; then
     echo "Deleting $FILE_NAME which is $AGE days old."
-    s3cmd del $FILE_NAME
+    s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} del $FILE_NAME s3://${S3_PATH}
   fi
 done
