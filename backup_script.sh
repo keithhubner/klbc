@@ -48,9 +48,6 @@ echo "Running Cleanup...."
 
 #!/bin/bash
 
-# Specify the number of days
-OLDER_THAN_DAYS=30
-
 # Current date in seconds
 CURRENT_DATE=$(date +%s)
 
@@ -69,7 +66,7 @@ s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} ls --recursive | while re
   AGE=$(( ($CURRENT_DATE - $FILE_DATE_SECONDS) / 86400 ))
 
   # If the file is older than the specified number of days, delete it
-  if [ $AGE -gt $OLDER_THAN_DAYS ]; then
+  if [ $AGE -gt ${OLDER_THAN_DAYS} ]; then
     echo "Deleting $FILE_NAME which is $AGE days old."
     s3cmd del $FILE_NAME
   fi
