@@ -55,7 +55,7 @@ OLDER_THAN_DAYS=30
 CURRENT_DATE=$(date +%s)
 
 # List all files in the S3 bucket with their timestamps
-s3cmd ls s3://${BUCKET}/ --recursive | while read -r line; do
+s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} ls --recursive | while read -r line; do
   # Extract the date and file path
   FILE_DATE=$(echo $line | awk '{print $1}')
   FILE_TIME=$(echo $line | awk '{print $2}')
