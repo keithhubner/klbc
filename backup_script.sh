@@ -52,7 +52,7 @@ echo "Running Cleanup...."
 CURRENT_DATE=$(date +%s)
 
 # List all files in the S3 bucket with their timestamps
-s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} ls --recursive | while read -r line; do
+s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} ls --recursive s3://${S3_PATH} | while read -r line; do
   # Extract the date and file path
   FILE_DATE=$(echo $line | awk '{print $1}')
   FILE_TIME=$(echo $line | awk '{print $2}')
