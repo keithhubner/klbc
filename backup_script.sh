@@ -84,5 +84,7 @@ function main() {
 
 main 2>&1 | tee -a ${LOGFILE} # watch the log file for errors
 
+cat ${LOGFILE}
+
 
 
