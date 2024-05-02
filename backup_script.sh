@@ -79,12 +79,13 @@ function main() {
     create_directorys
     run_backup
     run_s3_backup
+    cat ${LOGFILE} 
     cleanup
 }
 
 main 2>&1 | tee -a ${LOGFILE} # watch the log file for errors
 
-cat ${LOGFILE}
+
 
 
 
