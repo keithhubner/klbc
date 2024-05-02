@@ -20,6 +20,8 @@ trap 'err' ERR
 
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 LOG_TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
+echo "Backup file: $BACKUP_FILE"
 
 # Current date in seconds
 CURRENT_DATE=$(date +%s)
@@ -37,8 +39,6 @@ function create_directorys() {
 
 function run_backup() {
     echo "[$LOG_TIMESTAMP] Starting backup..." 
-    BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
-    echo "Backup file: $BACKUP_FILE"
     echo "Running mysqldump..."
     mariadb-dump -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
     echo "Backup finished."
@@ -79,7 +79,6 @@ function main() {
     create_directorys
     run_backup
     run_s3_backup
-    cat ${LOGFILE} 
     cleanup
 }
 
