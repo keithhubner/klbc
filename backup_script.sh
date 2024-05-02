@@ -30,12 +30,15 @@ function create_directorys() {
     mkdir -p "$APP_DIR/backups"
     mkdir -p "$APP_DIR/logs"
     echo "Backup directory created successfully."
+    # create log file
+    LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
+    echo "Log file: $LOGFILE"
 }
 
 function run_backup() {
     echo "[$LOG_TIMESTAMP] Starting backup..." 
-    echo "Backup file: $BACKUP_FILE"
     BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
+    echo "Backup file: $BACKUP_FILE"
     echo "Running mysqldump..."
     mariadb-dump -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
     echo "Backup finished."
@@ -72,10 +75,14 @@ function cleanup() {
   done
 }
 
-create_directorys
-run_backup
-run_s3_backup
-cleanup
+function main() {
+    create_directorys
+    run_backup
+    run_s3_backup
+    cleanup
+}
+
+main 2>&1 | tee -a ${LOGFILE} # watch the log file for errors
 
 
 
