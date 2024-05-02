@@ -36,13 +36,9 @@ function create_directorys() {
     echo "Log file: $LOGFILE"
 }
 
-function create_log_file() {
-    echo "Creating log file..."
-    LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
-    echo "Log file: $LOGFILE"
-}
-
 function run_backup() {
+    BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
+    echo "Backup file: $BACKUP_FILE"
     echo "[$LOG_TIMESTAMP] Starting backup..." 
     echo "Running mysqldump..."
     mariadb-dump -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" > $BACKUP_FILE
@@ -82,7 +78,6 @@ function cleanup() {
 
 function main() {
     create_directorys
-    create_log_file
     run_backup
     run_s3_backup
     cleanup
