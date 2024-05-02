@@ -20,8 +20,7 @@ trap 'err' ERR
 
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 LOG_TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
-BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
-echo "Backup file: $BACKUP_FILE"
+
 
 # Current date in seconds
 CURRENT_DATE=$(date +%s)
@@ -33,6 +32,12 @@ function create_directorys() {
     mkdir -p "$APP_DIR/logs"
     echo "Backup directory created successfully."
     # create log file
+    LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
+    echo "Log file: $LOGFILE"
+}
+
+function create_log_file() {
+    echo "Creating log file..."
     LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
     echo "Log file: $LOGFILE"
 }
@@ -77,12 +82,13 @@ function cleanup() {
 
 function main() {
     create_directorys
+    create_log_file
     run_backup
     run_s3_backup
     cleanup
 }
 
-main 2>&1 | tee -a ${LOGFILE} # watch the log file for errors
+main 2>&1 | tee -a $LOGFILE # watch the log file for errors
 
 
 
