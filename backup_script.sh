@@ -33,6 +33,7 @@ function create_directorys() {
     echo "Backup directory created successfully."
     # create log file
     LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
+    touch "$LOGFILE" || { echo "Cannot write to $LOGFILE"; exit 1; }
     echo "Log file: $LOGFILE"
 }
 
