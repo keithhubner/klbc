@@ -78,13 +78,13 @@ function cleanup() {
 }
 
 function main() {
-    create_directorys
-    run_backup
-    run_s3_backup
-    cleanup
+    create_directorys 2>&1 | tee -a $LOGFILE
+    run_backup 2>&1 | tee -a $LOGFILE
+    run_s3_backup 2>&1 | tee -a $LOGFILE
+    cleanup 2>&1 | tee -a $LOGFILE
 }
 
-main 2>&1 | tee -a $LOGFILE # watch the log file for errors
+# main 2>&1 | tee -a $LOGFILE # watch the log file for errors
 
 
 
