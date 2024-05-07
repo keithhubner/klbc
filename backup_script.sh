@@ -21,6 +21,8 @@ trap 'err' ERR
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 LOG_TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
+LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
+BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
 
 # Current date in seconds
 CURRENT_DATE=$(date +%s)
@@ -32,14 +34,12 @@ function create_directorys() {
     mkdir -p "$APP_DIR/logs"
     echo "Backup directory created successfully."
     # create log file
-    export LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
     touch "$LOGFILE" || { echo "Cannot write to $LOGFILE"; exit 1; }
     echo "Log file: $LOGFILE"
      
 }
 
 function run_backup() {
-    export BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
     echo "Backup file: $BACKUP_FILE"
     echo "[$LOG_TIMESTAMP] Starting backup..." 
     echo "Running mysqldump..."
