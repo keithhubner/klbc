@@ -84,7 +84,7 @@ function main() {
     cleanup 2>&1 | tee -a $LOGFILE
 }
 
-# main 2>&1 | tee -a $LOGFILE # watch the log file for errors
+main 
 
 
 
