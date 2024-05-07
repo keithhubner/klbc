@@ -49,7 +49,6 @@ function run_backup() {
 
 function run_s3_backup() {
     echo "Running S3 Backup...."
-    wait 5
     echo "Uploading $BACKUP_FILE to S3..."
     s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} put --acl-${PUB_PRIV} $BACKUP_FILE s3://${S3_PATH}
 }
