@@ -116,11 +116,11 @@ BODY="Please find the attached log file."
   echo "$BODY"
   echo
   echo "--FILEBOUNDARY"
-  echo "Content-Type: text/plain; name=\"$(basename "$LOG_FILE")\""
-  echo "Content-Disposition: attachment; filename=\"$(basename "$LOG_FILE")\""
+  echo "Content-Type: text/plain; name=\"$(basename "$LOGFILE")\""
+  echo "Content-Disposition: attachment; filename=\"$(basename "$LOGFILE")\""
   echo "Content-Transfer-Encoding: base64"
   echo
-  base64 "$LOG_FILE"
+  base64 "$LOGFILE"
   echo
   echo "--FILEBOUNDARY--"
 } > "$TMP_FILE"
