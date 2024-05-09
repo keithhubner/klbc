@@ -8,7 +8,7 @@ for var in "${env_vars[@]}"
 do
     if [ -z "${!var}" ]; then
         echo "$var is not set. Exiting..."
-        exit 1
+        exit 0
     fi
 done
 
@@ -38,11 +38,11 @@ mkdir -p "$APP_DIR"
 mkdir -p "$APP_DIR/backups"
 mkdir -p "$APP_DIR/logs"
 echo "Backup directory created successfully."
+LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
 # create log file
 touch "$LOGFILE" || { echo "Cannot write to $LOGFILE"; exit 1; }
 echo "Log file: $LOGFILE"
 
-LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
 BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
 
 # Current date in seconds
