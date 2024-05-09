@@ -1,6 +1,8 @@
 # Use the official MariaDB image as the base image
 FROM mariadb:latest
 
+ENV DEBIAN_FRONTEND="noninteractive"
+
 # Install necessary packages (if any) for backup script
 RUN apt-get update && apt-get install -y \
     mariadb-client s3cmd mailutils \
