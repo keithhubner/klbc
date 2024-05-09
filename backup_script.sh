@@ -96,6 +96,8 @@ function main() {
 
 main | 2>&1 tee -a $LOGFILE
 
+cat $LOGFILE
+
 
 
 
