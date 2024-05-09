@@ -1,8 +1,9 @@
 #!/bin/bash
 # Cleanup function
 
-env_vars = ["DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME", "BUCKET", "S3_PATH", "AWS_HOST", "PUB_PRIV", "OLDER_THAN_DAYS"]
 
+# Array of environment variables
+env_vars=("DB_HOST" "DB_USER" "DB_PASSWORD" "DB_NAME" "BUCKET" "S3_PATH" "AWS_HOST" "PUB_PRIV" "OLDER_THAN_DAYS")
 for var in "${env_vars[@]}"
 do
     if [ -z "${!var}" ]; then
@@ -32,23 +33,20 @@ trap 'err' ERR
 TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 LOG_TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
 
+echo "Creating backup directory..."
+mkdir -p "$APP_DIR"
+mkdir -p "$APP_DIR/backups"
+mkdir -p "$APP_DIR/logs"
+echo "Backup directory created successfully."
+# create log file
+touch "$LOGFILE" || { echo "Cannot write to $LOGFILE"; exit 1; }
+echo "Log file: $LOGFILE"
+
 LOGFILE="$APP_DIR/logs/backup-$TIMESTAMP.log"
 BACKUP_FILE="$APP_DIR/backups/$DB_NAME-$TIMESTAMP.sql"
 
 # Current date in seconds
 CURRENT_DATE=$(date +%s)
-
-function create_directorys() {
-    echo "Creating backup directory..."
-    mkdir -p "$APP_DIR"
-    mkdir -p "$APP_DIR/backups"
-    mkdir -p "$APP_DIR/logs"
-    echo "Backup directory created successfully."
-    # create log file
-    touch "$LOGFILE" || { echo "Cannot write to $LOGFILE"; exit 1; }
-    echo "Log file: $LOGFILE"
-     
-}
 
 function run_backup() {
     echo "Backup file: $BACKUP_FILE"
@@ -91,13 +89,12 @@ function cleanup() {
 }
 
 function main() {
-    create_directorys 2>&1 | tee -a $LOGFILE
-    run_backup 2>&1 | tee -a $LOGFILE
-    run_s3_backup 2>&1 | tee -a $LOGFILE
-    cleanup 2>&1 | tee -a $LOGFILE
+    run_backup 
+    run_s3_backup 
+    cleanup 
 }
 
-main 
+main | 2>&1 tee -a $LOGFILE
 
 
 
