@@ -1,5 +1,16 @@
 #!/bin/bash
 # Cleanup function
+
+env_vars = ["DB_HOST", "DB_USER", "DB_PASSWORD", "DB_NAME", "BUCKET", "S3_PATH", "AWS_HOST", "PUB_PRIV", "OLDER_THAN_DAYS"]
+
+for var in "${env_vars[@]}"
+do
+    if [ -z "${!var}" ]; then
+        echo "$var is not set. Exiting..."
+        exit 1
+    fi
+done
+
 cleanup() {
     # Perform cleanup tasks here
     echo "No errors occurred. Exiting..." 
