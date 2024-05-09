@@ -104,7 +104,28 @@ SUBJECT="Log File Report"
 BODY="Please find the attached log file."
 
 # Send email
-mail -s "$SUBJECT" -a "$LOGFILE" "$TO_ADDRESS" <<< "$BODY"
+{
+  echo "To: $TO_ADDRESS"
+  echo "Subject: $SUBJECT"
+  echo "MIME-Version: 1.0"
+  echo 'Content-Type: multipart/mixed; boundary="FILEBOUNDARY"'
+  echo
+  echo "--FILEBOUNDARY"
+  echo "Content-Type: text/plain; charset=utf-8"
+  echo
+  echo "$BODY"
+  echo
+  echo "--FILEBOUNDARY"
+  echo "Content-Type: text/plain; name=\"$(basename "$LOG_FILE")\""
+  echo "Content-Disposition: attachment; filename=\"$(basename "$LOG_FILE")\""
+  echo "Content-Transfer-Encoding: base64"
+  echo
+  base64 "$LOG_FILE"
+  echo
+  echo "--FILEBOUNDARY--"
+} > "$TMP_FILE"
+
+sendmail -t < "$TMP_FILE"
 
 
 
