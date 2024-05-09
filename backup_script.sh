@@ -96,7 +96,16 @@ function main() {
 
 main | 2>&1 tee -a $LOGFILE
 
-cat $LOGFILE
+#!/bin/bash
+
+# Variables
+TO_ADDRESS="keith@hubner.co.uk"
+SUBJECT="Log File Report"
+BODY="Please find the attached log file."
+
+# Send email
+mail -s "$SUBJECT" -a "$LOGFILE" "$TO_ADDRESS" <<< "$BODY"
+
 
 
 

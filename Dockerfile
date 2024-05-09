@@ -3,7 +3,7 @@ FROM mariadb:latest
 
 # Install necessary packages (if any) for backup script
 RUN apt-get update && apt-get install -y \
-    mariadb-client s3cmd \
+    mariadb-client s3cmd mailutils \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the backup script to the container
