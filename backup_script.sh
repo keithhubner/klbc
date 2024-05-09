@@ -102,7 +102,7 @@ main | 2>&1 tee -a $LOGFILE
 TO_ADDRESS="keith@hubner.co.uk"
 SUBJECT="Log File Report"
 BODY="Please find the attached log file."
-
+TMP_FILE="/tmp/email.txt"
 # Send email
 {
   echo "To: $TO_ADDRESS"
