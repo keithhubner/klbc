@@ -63,7 +63,7 @@ function run_s3_backup() {
 }
 
 function cleanup() {
-    echo "Running Cleanup...." 
+    echo "Running Cleanup....removing any backups older than $OLDER_THAN_DAYS days." 
     # List all files in the S3 bucket with their timestamps
     s3cmd --host=${AWS_HOST}  --host-bucket=s3://${BUCKET} ls --recursive s3://${S3_PATH} | while read -r line; do
     # Extract the date and file path
